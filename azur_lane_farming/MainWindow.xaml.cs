@@ -137,11 +137,11 @@ namespace azur_lane_farming
         private bool enterstage5_1()
         {
 
-            //if (checkValidColor(155, 271, 201, 313, new int[] { 0x295159, 0xFFD742, 0xF79A00, 0xBAA976 }))
-            if (true)
+            if (checkValidColor(155, 271, 201, 313, new int[] { 0x295159, 0xFFD742, 0xF79A00, 0xBAA976 }))
+            //if (true)
             {
                 bool inBattle = true;
-                //click("enterstage5_1", 177, 298);
+                click("enterstage5_1", 177, 298);
                 while (inBattle)
                 {
                     if (checkValidColor(737, 359, 752, 369, new int[] { 0x963B03, 0xAA5215, 0x943800, 0x704B1B }))
@@ -157,15 +157,15 @@ namespace azur_lane_farming
                     int battle_count = 0;
                     while (battle_count < 3)
                     {
-                        var coord = Au3.PixelSearch(149, 115, 924, 523, 0xD4B010, 4);
+                        var coord = Au3.PixelSearch(88, 73, 924, 523, 0xD6C518, 4);
                         if (Au3.error == 0)
                         {
-                            Console.WriteLine("found small fleet");
+                            Console.WriteLine("found small fleet at " + coord[0] + ":" + coord[1]);
 
-                            var coord2 = Au3.PixelSearch(coord[0], coord[1], coord[0] + 30, coord[1]+30, 0xD6C310, 4);
+                            var coord2 = Au3.PixelSearch(coord[0]-30, coord[1]-30, coord[0] + 30, coord[1]+30, 0xD6C518, 4);
                             if (Au3.error == 0)
                             {
-                                click("Enter The Battle Round " + (battle_count+1), coord2[0], coord2[1]);
+                                click("Enter The Battle Round " + (battle_count+1), coord2[0]+50, coord2[1]+50);
                                 bool waitForClickBattle = true;
                                 while(waitForClickBattle)
                                 {
@@ -184,6 +184,10 @@ namespace azur_lane_farming
                                     if (checkValidColor(25, 267, 117, 299, new int[] { 0xA56910 }) && checkValidColor(831, 267, 920, 300, new int[] { 0xA56910 }))
                                     {
                                         click("Finish Battle", 476, 320);
+                                        Thread.Sleep(3000);
+                                        click("Finish Battle", 476, 320);
+                                        Thread.Sleep(3000);
+                                        click("Finish Battle", 476, 320);
                                         isFinish = true;
                                     }
                                         
@@ -192,6 +196,7 @@ namespace azur_lane_farming
                                 bool isConfirm = false;
                                 while (!isConfirm)
                                 {
+                                    Console.WriteLine("waitForConfirm");
                                     if (checkValidColor(829, 465, 859, 484, new int[] { 0xE7DFDE , 0xACAAAB, 0x555655 , 0xDEDCDE }))
                                     {
                                         click("Finish Battle", 806, 468);
