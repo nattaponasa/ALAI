@@ -1,0 +1,17 @@
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\bin\Debug\azur_lane_farming.exe.config
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\bin\Debug\azur_lane_farming.exe
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\bin\Debug\azur_lane_farming.pdb
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.csprojAssemblyReference.cache
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\Interop.AutoItX3Lib.dll
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.csproj.ResolveComReference.cache
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\MainWindow.g.cs
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\App.g.cs
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming_MarkupCompile.cache
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming_MarkupCompile.lref
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\MainWindow.baml
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.g.resources
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.Properties.Resources.resources
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.csproj.GenerateResource.cache
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.csproj.CoreCompileInputs.cache
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.exe
+c:\users\zkjr\source\repos\azur_lane_farming\azur_lane_farming\obj\Debug\azur_lane_farming.pdb
