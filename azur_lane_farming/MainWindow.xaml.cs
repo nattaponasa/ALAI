@@ -136,7 +136,8 @@ namespace azur_lane_farming
 
         private bool enterstage5_1()
         {
-
+            battle();
+            return true;
             if (checkValidColor(155, 271, 201, 313, new int[] { 0x295159, 0xFFD742, 0xF79A00, 0xBAA976 }))
             //if (true)
             {
@@ -146,89 +147,142 @@ namespace azur_lane_farming
                 {
                     if (checkValidColor(737, 359, 752, 369, new int[] { 0x963B03, 0xAA5215, 0x943800, 0x704B1B }))
                     {
-                        click("go", 673, 380);                            
+                        click("go", 673, 380);
                     }
                     if (checkValidColor(796, 377, 807, 388, new int[] { 0x943800, 0xCE9B34, 0x974B02, 0x923700 }))
                     {
                         click("Select Fleet", 739, 400);
-                        
-                    }
-                    Console.WriteLine("Before Battle");
-                    int battle_count = 0;
-                    while (battle_count < 3)
-                    {
-                        var coord = Au3.PixelSearch(88, 73, 924, 523, 0xD6C518, 4);
-                        if (Au3.error == 0)
-                        {
-                            Console.WriteLine("found small fleet at " + coord[0] + ":" + coord[1]);
-
-                            var coord2 = Au3.PixelSearch(coord[0]-30, coord[1]-30, coord[0] + 30, coord[1]+30, 0xD6C518, 4);
-                            if (Au3.error == 0)
-                            {
-                                click("Enter The Battle Round " + (battle_count+1), coord2[0]+50, coord2[1]+50);
-                                bool waitForClickBattle = true;
-                                while(waitForClickBattle)
-                                {
-                                    Console.WriteLine("waitForClickBattle");
-                                    if (checkValidColor(687, 467, 752, 512, new int[] { 0xE77D6B, 0x824646, 0xAC7C59, 0xFEE4AE }))
-                                    {
-                                        click("Click Battle", 777, 488);
-                                        waitForClickBattle = false;
-                                    }
-                                    Thread.Sleep(1000);
-                                }
-                                bool isFinish = false;
-                                while (!isFinish)
-                                {
-                                    Console.WriteLine("waitForFinishBattle");
-                                    if (checkValidColor(25, 267, 117, 299, new int[] { 0xA56910 }) && checkValidColor(831, 267, 920, 300, new int[] { 0xA56910 }))
-                                    {
-                                        click("Finish Battle", 476, 320);
-                                        Thread.Sleep(3000);
-                                        click("Finish Battle", 476, 320);
-                                        Thread.Sleep(3000);
-                                        click("Finish Battle", 476, 320);
-                                        isFinish = true;
-                                    }
-                                        
-                                }
-
-                                bool isConfirm = false;
-                                while (!isConfirm)
-                                {
-                                    Console.WriteLine("waitForConfirm");
-                                    if (checkValidColor(829, 465, 859, 484, new int[] { 0xE7DFDE , 0xACAAAB, 0x555655 , 0xDEDCDE }))
-                                    {
-                                        click("Finish Battle", 806, 468);
-                                        isConfirm = true;
-                                        battle_count += 1;
-                                    }
-
-                                }
-
-                            }
-                            
-                        }
-                        else
-                        {
-                            Console.WriteLine(Au3.error);
-                        }
-                        Thread.Sleep(1000);
+                        battle();
+                        return true;
                     }
 
 
-                    inBattle = false;
+
                 }
-                Console.WriteLine("End Battle");
-                return true;
-
             }
             return false;
         }
 
+        void battle()
+        {
+                Console.WriteLine("Before Battle");
+                int battle_count = 0;
+                while (true)
+                {
+                    //boss node
+                    if (findNode(new int[] { 0x312831 , 0xFF4D4A }))
+                    {
+                        Console.WriteLine("End Battle");
+                        return;
+                    }
+                    //small fleet
+                    findNode(new int[] { 0xD6C518, 0xD6C518 });
+                    //medium fleet
+                    findNode(new int[] { 0xDEAA00, 0xE7A600 });
+                    //large fleet
+                    findNode(new int[] { 0xBD3000, 0xB63300 });
+
+                }
+
+            
+            
+        }
+        
+
+        bool findNode(int[] colors)
+        {
+            int startCoordX = 88;
+            int startCoordY = 99;
+            while(!checkValidColor(687, 467, 752, 512, new int[] { 0xE77D6B, 0x824646, 0xAC7C59, 0xFEE4AE }))
+            {
+                
+                Console.WriteLine("Find Node");
+                if (startCoordY > 523)
+                {
+                    return false;
+                }
+                var nodeCoord = Au3.PixelSearch(startCoordX, startCoordY, 924, 523, colors[0], 4);
+                if (Au3.error == 0)
+                {
+                    Console.WriteLine("Founded First Color" + nodeCoord[0] + ":" + nodeCoord[1]);
+                    var coord = Au3.PixelSearch(nodeCoord[0] - 30, nodeCoord[1] - 30, nodeCoord[0] + 30, nodeCoord[1] + 30, colors[1], 4);
+                    if (Au3.error == 0)
+                    {
+                        Console.WriteLine("found node " + nodeCoord[0] + ":" + nodeCoord[1]);
+                        click("Enter The Battle", coord[0] + 50, coord[1] + 50);
+                        Thread.Sleep(5000);
+                        startCoordX = 88;
+                        startCoordY = 99;
+                        if (checkValidColor(594, 290, 732, 328, new int[] { 0xC3C1C3, 0xFFFFFF, 0xE4E2E4, 0xC2BEBD }))
+                        {
+                            click("Evade", 656, 306) ;
+                        }
+
+                    }
+                    else
+                    {
+                        
+
+                        if (nodeCoord[1] == startCoordY)
+                        {
+                            startCoordX = nodeCoord[0] + 30;
+                        }
+                        else
+                        {
+                            startCoordX = 88;
+                            startCoordY = nodeCoord[1] + 30;
+                        }
+                        
+                        Console.WriteLine("set start x to " + startCoordX + ":" + startCoordY);
+                    }
 
 
 
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            Console.WriteLine("waitForClickBattle");
+            click("Click Battle", 777, 488);
+            Thread.Sleep(1000);
+            isStart = true;
+
+            bool isFinish = false;
+            while (!isFinish)
+            {
+                Console.WriteLine("waitForClickBattle");
+                if (checkValidColor(125, 363, 848, 397, new int[] { 0x4BCE32}))
+                {
+                    click("Finish Battle", 467, 422);
+                    Thread.Sleep(3000);
+                    click("Finish Battle", 467, 422);
+                    Thread.Sleep(3000);
+                    click("Finish Battle", 467, 422);
+                    isFinish = true;
+                }
+
+            }
+
+            bool isConfirm = false;
+            while (!isConfirm)
+            {
+                Console.WriteLine("waitForConfirm");
+                if (checkValidColor(829, 465, 859, 484, new int[] { 0xE7DFDE, 0xACAAAB, 0x555655, 0xDEDCDE }))
+                {
+                    click("Finish Battle", 806, 468);
+                    isConfirm = true;
+                    return true;
+                }
+
+            }
+
+
+
+
+            return false;
+        }
 
 
 
